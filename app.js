@@ -45,6 +45,8 @@ function renderEvents() {
     const date = formatDate(event.date);
     const taken = getEventRegistrations(event.id).length;
     const remaining = Math.max(0, event.capacity - taken);
+    const isRegistered = registrations.some((registration) => registration.eventId === event.id);
+    const buttonLabel = isRegistered ? "Registered" : remaining === 0 ? "Full" : "Register";
     return `<article class="event-card">
       <div class="event-date"><strong>${date.day}</strong>${date.month}</div>
       <p class="event-category">${event.category}</p>
@@ -52,7 +54,7 @@ function renderEvents() {
       <p class="event-details">${event.time} &middot; ${event.venue}</p>
       <div class="event-footer">
         <span class="seats">${remaining} seat${remaining === 1 ? "" : "s"} left</span>
-        <button class="register-button" data-register="${event.id}" ${remaining === 0 ? "disabled" : ""}>${remaining === 0 ? "Full" : "Register"}</button>
+        <button class="register-button ${isRegistered ? "registered-button" : ""}" data-register="${event.id}" ${(remaining === 0 || isRegistered) ? "disabled" : ""}>${buttonLabel}</button>
       </div>
     </article>`;
   }).join("");
@@ -84,14 +86,19 @@ function openRegistration(eventId) {
   document.querySelector("#dialog-title").textContent = event.title;
   document.querySelector("#dialog-meta").textContent = `${date.month} ${date.day} at ${event.time} in ${event.venue}`;
   document.querySelector("[name=eventId]").value = eventId;
-  dialog.showModal();
+  if (typeof dialog.showModal === "function") {
+    dialog.showModal();
+  } else {
+    dialog.setAttribute("open", "");
+  }
 }
 
 document.addEventListener("click", (event) => {
-  const registerId = event.target.dataset.register;
-  const cancelId = event.target.dataset.cancel;
+  const clickedElement = event.target instanceof Element ? event.target : null;
+  const registerId = clickedElement?.dataset.register;
+  const cancelId = clickedElement?.dataset.cancel;
   if (registerId) openRegistration(registerId);
-  if (event.target.dataset.print) printRegistration(event.target.dataset.print);
+  if (clickedElement?.dataset.print) printRegistration(clickedElement.dataset.print);
   if (cancelId) {
     registrations = registrations.filter((registration) => registration.eventId !== cancelId);
     saveData();

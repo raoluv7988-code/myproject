@@ -72,6 +72,7 @@ h2 { font-size: clamp(35px, 4vw, 54px); }
 .register-button { padding: 11px 15px; border: 1px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; font-size: 13px; font-weight: 700; }
 .register-button:hover { color: white; background: var(--ink); }
 .register-button:disabled { color: #a4adaa; border-color: #d6dcd7; cursor: not-allowed; }
+.register-button.registered-button { color: #28785e; border-color: #9acbb9; background: #e6f4ed; }
 .empty-state { padding: 30px 0; color: var(--muted); }
 .registrations-section { background: var(--ink); color: var(--cream); }
 .registrations-section .eyebrow { color: var(--yellow); }
