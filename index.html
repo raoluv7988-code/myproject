@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="CampusConnect makes it simple to discover and register for campus events.">
+	<title>CampusConnect | Campus Events</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="site-shell">
+		<header class="topbar">
+			<a class="brand" href="#home" aria-label="CampusConnect home">
+				<span class="brand-mark">CC</span>
+				<span>Campus<span>Connect</span></span>
+			</a>
+			<nav class="main-nav" aria-label="Main navigation">
+				<a class="active" href="#home">Discover</a>
+				<a href="#registrations">My registrations <span id="registration-count" class="nav-count">0</span></a>
+				<button id="organizer-toggle" class="nav-button" type="button">Organizer view</button>
+			</nav>
+			<button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu">Menu</button>
+		</header>
+
+		<main id="home">
+			<section class="hero-section">
+				<div class="hero-copy">
+					<p class="eyebrow">Your campus, in motion</p>
+					<h1>Find your next<br><em>good reason</em> to show up.</h1>
+					<p class="hero-text">Discover workshops, competitions, clubs, and conversations happening around campus. Reserve your seat before the room fills up.</p>
+					<a class="primary-button" href="#events">Explore events <span aria-hidden="true">&#8594;</span></a>
+				</div>
+				<div class="hero-art" aria-label="Illustration of students attending a campus event">
+					<div class="art-sun"></div>
+					<div class="art-circle circle-one"></div>
+					<div class="art-circle circle-two"></div>
+					<div class="art-card"><span>UP<br>COMING</span><strong>EVENTS</strong></div>
+					<div class="art-person person-one"></div>
+					<div class="art-person person-two"></div>
+					<div class="art-person person-three"></div>
+					<div class="art-ground"></div>
+				</div>
+			</section>
+
+			<section id="events" class="events-section" aria-labelledby="events-heading">
+				<div class="section-heading">
+					<div>
+						<p class="eyebrow">The campus calendar</p>
+						<h2 id="events-heading">Happening soon</h2>
+					</div>
+					<div class="event-controls">
+						<label class="search-box"><span aria-hidden="true">&#128269;</span><input id="search-input" type="search" placeholder="Search events" aria-label="Search events"></label>
+						<select id="category-filter" aria-label="Filter by category">
+							<option value="all">All categories</option>
+							<option value="Technology">Technology</option>
+							<option value="Culture">Culture</option>
+							<option value="Career">Career</option>
+							<option value="Sports">Sports</option>
+						</select>
+					</div>
+				</div>
+				<div id="event-grid" class="event-grid"></div>
+				<p id="empty-state" class="empty-state" hidden>No events match your search. Try another keyword.</p>
+			</section>
+
+			<section id="registrations" class="registrations-section" aria-labelledby="registrations-heading">
+				<div class="section-heading compact-heading">
+					<div>
+						<p class="eyebrow">Saved for you</p>
+						<h2 id="registrations-heading">My registrations</h2>
+					</div>
+					<span id="registration-summary" class="summary-label">No registrations yet</span>
+				</div>
+				<div id="registration-list" class="registration-list"></div>
+			</section>
+
+			<section id="organizer-panel" class="organizer-section" hidden aria-labelledby="organizer-heading">
+				<div class="section-heading compact-heading">
+					<div>
+						<p class="eyebrow">Manage the calendar</p>
+						<h2 id="organizer-heading">Organizer dashboard</h2>
+					</div>
+					<button id="reset-events" class="text-button" type="button">Reset sample events</button>
+				</div>
+				<form id="event-form" class="event-form">
+					<label>Event name<input name="title" required placeholder="e.g. Design Thinking Workshop"></label>
+					<label>Category<select name="category"><option>Technology</option><option>Culture</option><option>Career</option><option>Sports</option></select></label>
+					<label>Date<input name="date" type="date" required></label>
+					<label>Time<input name="time" required placeholder="5:00 PM"></label>
+					<label>Venue<input name="venue" required placeholder="Innovation Lab"></label>
+					<label>Seats<input name="capacity" type="number" min="1" required placeholder="50"></label>
+					<button class="primary-button" type="submit">Add event <span aria-hidden="true">+</span></button>
+				</form>
+			</section>
+		</main>
+
+		<footer class="footer"><span>CampusConnect</span><span>Built for a more connected campus.</span><span>CA1 Project</span></footer>
+	</div>
+
+	<dialog id="registration-dialog" class="registration-dialog">
+		<button id="close-dialog" class="close-button" type="button" aria-label="Close registration form">&times;</button>
+		<p class="eyebrow">Save your seat</p>
+		<h2 id="dialog-title">Register for this event</h2>
+		<p id="dialog-meta" class="dialog-meta"></p>
+		<form id="registration-form">
+			<label>Full name<input name="name" required autocomplete="name" placeholder="Your name"></label>
+			<label>University email<input name="email" required type="email" autocomplete="email" placeholder="you@university.edu"></label>
+			<input name="eventId" type="hidden">
+			<button class="primary-button" type="submit">Confirm registration <span aria-hidden="true">&#8594;</span></button>
+		</form>
+	</dialog>
+	<div id="toast" class="toast" role="status" aria-live="polite"></div>
+	<script src="app.js"></script>
+</body>
+</html>
